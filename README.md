@@ -13,7 +13,7 @@
    - `npm install`
 
 ## Starting the dev server 
-### `npm start` or `npx expo start`
+### `npm start`
 
 Runs the app in the development mode.\
 Expo CLI starts Metro Bundler.\
