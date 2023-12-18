@@ -1,7 +1,7 @@
 # DocSwift
 
 ## Getting Started
-1.Clone repo
+1. Clone repo
    - `git clone https://github.com/cruizeship/docswift.git`
 2. Download node from the internet
    - Read https://nodejs.org/en/download
