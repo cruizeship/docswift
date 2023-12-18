@@ -20,13 +20,14 @@ Expo CLI starts Metro Bundler.\
 It also pops up Expo Dev Tools, a graphical interface for Expo CLI.
 
 ## Opening the app on phone/tablet
+### `npx expo start`
 * On your iPhone or iPad, open the default Apple "Camera" app and scan the QR code you see in the terminal or in Expo Dev Tools.
 * On your Android device, press "Scan QR Code" on the "Projects" tab of the Expo Go app and scan the QR code you see in the terminal or in Expo Dev Tools.
 
 The page will auto-reload when edits are made.
 
 ## Opening the app on Xcode (Mac ONLY) 
-### `npm start --ios` or `expo start --ios`
+### `npm start --ios`
 
 Be sure to open up the "Simulator" app before running the above command
 Xcode will display an IOS simulator of our app.\
