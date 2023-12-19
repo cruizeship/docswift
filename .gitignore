@@ -1,5 +1,6 @@
 node_modules/
 .expo/
+package-lock.json
 
 # macOS
 .DS_Store
