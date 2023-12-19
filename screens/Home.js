@@ -12,10 +12,11 @@ import {
     View,
     Image,
     TouchableOpacity,
-} from 'react-native'
+} from 'react-native';
 import Camera from "../screens/Camera";
 import Gallery from "../screens/Gallery";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 
 export default function Home() {
     const [isCameraPageOpen, setIsCameraPageOpen] = useState(false);
@@ -39,43 +40,65 @@ export default function Home() {
     });
     const menuMemo = useMemo(() => {
         return (
-            <View style={{height: 100, backgroundColor: 'green', opacity: '100%'}}>
-                <Text>stuff here</Text>
+            <View style={styles.menuContainer}>
+                <TouchableOpacity style={{height: '100%', width: '100%'}}
+                onPress={() => {
+                    setIsMenuOpen(false)
+                }}
+                >
+                <View style={{flex: 1, width: '100%' }} />
+                <View style={{flex: 1, width: '100%' }}>
+                    <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'rgb(59, 86, 162)', flexDirection: 'row'}]}
+                    onPress={() => {
+                        setIsCameraPageOpen(true)
+                        setIsMenuOpen(false)
+                    }}
+                    >
+                        <Icon name="camera" size={25} color="white" style={{width: '80%', position: 'absolute' }}/>
+                        <Text style={{color: 'white', fontSize: 25, flex: 2, textAlign: 'center'}}>Camera</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'rgb(0, 175, 255)'}]}
+                    onPress={() => {
+                        setIsGalleryPageOpen(true)
+                        setIsMenuOpen(false)
+                    }}
+                    >
+                        <Icon2 name="picture-o" size={25} color="white" style={{width: '80%', position: 'absolute' }}/>
+                        <Text style={{color: 'white', fontSize: 25}}>Photos</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'rgb(99, 107, 124)'}]}
+                    onPress={() => {
+                        setIsFilesPageOpen(true)
+                        setIsMenuOpen(false)
+                    }}
+                    >
+                        <Icon name="file" size={25} color="white" style={{width: '80%', position: 'absolute' }}/>
+                        <Text style={{color: 'white', fontSize: 25}}>Import files</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{height: '15%', width: '100%' }}>
+                    <TouchableOpacity style={[styles.circle, { position: 'absolute', zIndex: 2000, backgroundColor: 'rgb(179, 179, 179)' }]}
+                    onPress={() => setIsMenuOpen(!isMenuOpen)}
+                    >
+                        <Icon name="x" size={50} color="white" />
+                    </TouchableOpacity>
+                </View>
+                </TouchableOpacity>
             </View>
         );
     });
 
     return (
         <View style={styles.container}>
-            {/*
-            <View style={{ flex: 2, backgroundColor: 'white' }} />
-            <View style={[styles.buttonContainer, { flex: 5, paddingBottom: 25 }]}>
-                <View style={[styles.insideButtonContainer, { flex: 1 }]}>
-                <TouchableOpacity style={[styles.tempContainer, { flex: 1}]}
-                    onPress={() => setIsCameraPageOpen(!isCameraPageOpen)}
-                    >
-                        <Text>Scan New Document</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.buttonContainer, { flex: 5, paddingTop: 25 }]}>
-                <View style={[styles.insideButtonContainer, { flex: 1 }]}>
-                <TouchableOpacity style={[styles.tempContainer, { flex: 1}]}
-                    onPress={() => setIsGalleryPageOpen(!isGalleryPageOpen)}
-                    >
-                        <Text>Choose from Gallery</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>*/}
-            <View style={[styles.menuContainer, { flex: 12, backgroundColor: 'lightblue' }]} />
-            <View style={[styles.menuContainer, { flex: 3 }]}>
-                <TouchableOpacity style={[styles.circle, { position: 'absolute', zIndex: 2000 }]}
+            <View style={[styles.middleContainer, { height: '85%' }]} />
+            <View style={[styles.bottomContainer, { height: '15%' }]}>
+                <TouchableOpacity style={[styles.circle, { position: 'absolute', zIndex: 2000, backgroundColor: 'rgb(76, 193, 255)' }]}
                     onPress={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        <Text>Plus Icon Here</Text>
+                        <Icon name="plus" size={50} color="white" />
                 </TouchableOpacity>
-                <View style={{backgroundColor: 'white', height: '100%', flex: 2 }} />
-                <View style={{backgroundColor: 'blue', height: '100%', flex: 3 }} />
+                <View style={{backgroundColor: 'rgb(0, 31, 80)', height: '100%', flex: 1 }} />
+                <View style={{backgroundColor: 'rgb(67, 82, 105 )', height: '100%', flex: 3, borderTopLeftRadius: 10, borderTopRightRadius: 10 }} />
             </View>
             {isCameraPageOpen && (
                 <Modal animationType="slide">{cameraMemo}</Modal>
@@ -84,42 +107,7 @@ export default function Home() {
                 <Modal animationType="slide">{galleryMemo}</Modal>
             )}
             {isMenuOpen && (
-                <View style={{position: 'absolute', height: '100%', width: '100%', backgroundColor: 'rgba(0,0,0,0.8)'}}>
-                    <View style={{flex: 1, width: '100%' }} />
-                    <View style={{flex: 1, width: '100%' }}>
-                        <TouchableOpacity style={styles.buttonContainer}
-                        onPress={() => {
-                            setIsCameraPageOpen(true)
-                            setIsMenuOpen(false)
-                        }}
-                        >
-                            <Text>Take Picture</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonContainer}
-                        onPress={() => {
-                            setIsGalleryPageOpen(true)
-                            setIsMenuOpen(false)
-                        }}
-                        >
-                            <Text>Choose from photos</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonContainer}
-                        onPress={() => {
-                            setIsFilesPageOpen(true)
-                            setIsMenuOpen(false)
-                        }}
-                        >
-                            <Text>Choose from files</Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{height: '20%', width: '100%' }}>
-                    <TouchableOpacity style={[styles.circle, { position: 'absolute', zIndex: 2000 }]}
-                    onPress={() => setIsMenuOpen(!isMenuOpen)}
-                    >
-                        <Text>Cancel Icon Here</Text>
-                </TouchableOpacity>
-                    </View>
-                </View>
+                <Modal animationType="fade" transparent={true}>{menuMemo}</Modal>
             )}
         </View>
     )
@@ -135,26 +123,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 50, 
-        backgroundColor: 'lightblue', 
         margin: '10%', 
         marginTop: 0, 
         marginBottom: '5%', 
         borderRadius: 15,
     },
     menuContainer: {
-        width: '100%',
+        height: '100%', 
+        width: '100%', 
+        backgroundColor: 'rgba(0,0,0,0.6)',
     },
     circle: {
         height: '90%',
         borderRadius: 100000,
-        backgroundColor: 'red',
         aspectRatio: '1/1',
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    blurOverlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 100,
+    middleContainer: {
+        backgroundColor: 'rgb(0, 31, 80)',
+    },
+    bottomContainer: {
+        backgroundColor: 'rgb(0, 31, 80)'
     },
 })
