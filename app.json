@@ -1,11 +1,16 @@
 {
   "expo": {
-    "name": "AwesomeProject",
+    "name": "DocSwift",
     "slug": "AwesomeProject",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f8f452be-fed8-4f52-89fb-9b9c0d356909"
+      }
+    }
   },
-  "name": "AwesomeProject"
+  "name": "DocSwift"
 }

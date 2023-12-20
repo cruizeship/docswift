@@ -46,8 +46,8 @@ export default function Home() {
                     setIsMenuOpen(false)
                 }}
                 >
-                <View style={{flex: 1, width: '100%' }} />
-                <View style={{flex: 1, width: '100%' }}>
+                <View style={{flex: 5, width: '100%' }} />
+                <View style={{flex: 4, width: '100%' }}>
                     <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'rgb(59, 86, 162)', flexDirection: 'row'}]}
                     onPress={() => {
                         setIsCameraPageOpen(true)
@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 50, 
         margin: '10%', 
         marginTop: 0, 
         marginBottom: '5%', 
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.6)',
     },
     circle: {
-        height: '90%',
+        height: '80%',
         borderRadius: 100000,
         aspectRatio: '1/1',
         alignSelf: 'center',
