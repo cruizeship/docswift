@@ -13,15 +13,15 @@ import { Camera as Camera2 } from 'expo-camera';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default function Camera(props) {
-    const { onRequestClose } = props;
+    const { onRequestClose, openAnalysis } = props;
 
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [camera, setCamera] = useState(null)
-    //const [image, setImage] = useState([])
     const [type, setType] = useState(Camera2.Constants.Type.back)
     const [images, setImages] = useState([]);
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isScansPageOpen, setIsScansPageOpen] = useState(false);
 
     const permisionFunction = async () => {
         const cameraPermission = await Camera2.requestCameraPermissionsAsync();
@@ -81,20 +81,14 @@ export default function Camera(props) {
             imagesCopy.push(element)
         });
         imagesCopy[index].selected = true;
-        //images.forEach((element) => alert(element.image + ' ' + element.selected));
-        
         setImages(imagesCopy);
-        //alert(index)
     }
 
     const deleteImage = async () => {
-
         var objIndex = images.findIndex((obj => obj.selected == true));
         if (objIndex == -1) {
             alert('No Scan Selected')
         }
-        
-        //images.forEach((element) => alert(element.image + ' ' + element.selected));
         var imagesCopy = [];
         images.forEach((element) => {
             if (element.selected == false) {
@@ -102,11 +96,6 @@ export default function Camera(props) {
             }
         });
         setImages(imagesCopy);
-
-    }
-
-    const popupImage = async (index) => {
-        alert('long press')
     }
 
     if (hasCameraPermission === false) {
@@ -115,14 +104,16 @@ export default function Camera(props) {
                 <View style={[styles.noPermission, { flex: 4, width: '100%'}]}>
                     <Text>No access to camera</Text>
                 </View>
-                <View style={[styles.tempContainer, { flex: 1, backgroundColor: 'white' }]}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            onRequestClose();
-                        }}
-                    >
-                        <Text style={{backgroundColor: 'lightblue', padding: 10}}>Click me to close</Text>
-                    </TouchableOpacity>
+                <View style={[styles.bottomContainer, { flex: 1 }]}>
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                onRequestClose();
+                            }}
+                        >
+                            <Text style={{ color: '#007AFF', fontSize: 18}}>Back</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
         )
@@ -210,7 +201,7 @@ export default function Camera(props) {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            alert('Analyze');
+                            openAnalysis(images)
                         }}
                     >
                         <Text style={{ color: '#007AFF', fontSize: 18}}>Analyze</Text>
@@ -230,8 +221,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     bottomContainer: {
-        //alignItems: 'center',
-        //justifyContent: 'center',
         flexDirection: 'row'
     },
     cameraContainer: {
@@ -276,8 +265,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: 'lightgray',
         flexDirection: 'row',
-        borderTopWidth: 3, 
-        borderBottomWidth: 3, 
+        borderWidth: 3, 
         borderColor: 'gray'
     },
     imagesContainer: {

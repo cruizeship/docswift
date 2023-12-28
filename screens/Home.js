@@ -15,19 +15,27 @@ import {
 } from 'react-native';
 import Camera from "../screens/Camera";
 import Gallery from "../screens/Gallery";
+import Analysis from "../screens/Analysis";
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 
 export default function Home() {
     const [isCameraPageOpen, setIsCameraPageOpen] = useState(false);
     const [isGalleryPageOpen, setIsGalleryPageOpen] = useState(false);
+    const [isAnalysisPageOpen, setIsAnalysisPageOpen] = useState(false);
     const [isFilesPageOpen, setIsFilesPageOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [imageLst, setImageLst] = useState([]);
 
     const cameraMemo = useMemo(() => {
         return (
             <Camera
                 onRequestClose={() => setIsCameraPageOpen(false)}
+                openAnalysis={(images) => {
+                    setIsCameraPageOpen(false)
+                    setIsAnalysisPageOpen(true)
+                    setImageLst(images)
+                }}
             />
         );
     });
@@ -35,6 +43,14 @@ export default function Home() {
         return (
             <Gallery
                 onRequestClose={() => setIsGalleryPageOpen(false)}
+            />
+        );
+    });
+    const analysisMemo = useMemo(() => {
+        return (
+            <Analysis
+                onRequestClose={() => setIsAnalysisPageOpen(false)}
+                images={imageLst}
             />
         );
     });
@@ -105,6 +121,9 @@ export default function Home() {
             )}
             {isGalleryPageOpen && (
                 <Modal animationType="slide">{galleryMemo}</Modal>
+            )}
+            {isAnalysisPageOpen && (
+                <Modal animationType="slide">{analysisMemo}</Modal>
             )}
             {isMenuOpen && (
                 <Modal animationType="fade" transparent={true}>{menuMemo}</Modal>

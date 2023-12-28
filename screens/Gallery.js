@@ -14,7 +14,7 @@ export default function Gallery(props) {
     return (
         <View style={styles.container}>
             <View style={[styles.tempContainer, { flex: 6, backgroundColor: 'lightblue' }]}>
-                <Text>Stuff here</Text>
+                <Text>Gallery here</Text>
             </View>
             <View style={[styles.tempContainer, { flex: 1, backgroundColor: 'white' }]}>
                 <TouchableOpacity
