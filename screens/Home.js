@@ -32,9 +32,13 @@ export default function Home() {
             <Camera
                 onRequestClose={() => setIsCameraPageOpen(false)}
                 openAnalysis={(images) => {
-                    setIsCameraPageOpen(false)
-                    setIsAnalysisPageOpen(true)
-                    setImageLst(images)
+                    if (images != null && images.length != 0) {
+                        setIsCameraPageOpen(false)
+                        setIsAnalysisPageOpen(true)
+                        setImageLst(images)
+                    } else {
+                        alert('No Scans to Analyze')
+                    }
                 }}
             />
         );

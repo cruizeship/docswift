@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
     StyleSheet,
     Text,
@@ -11,13 +11,11 @@ import {
 
 export default function Analysis(props) {
     const { onRequestClose, images } = props;
+    const [imageLst, setImages] = useState(images);
 
     const selectImage = async (index) => {
-        if (images[index].selected == true) {
-            setIsPopupOpen(true)
-        }
         var imagesCopy = [];
-        images.forEach((element) => {
+        imageLst.forEach((element) => {
             element.selected = false;
             imagesCopy.push(element)
         });
@@ -33,7 +31,7 @@ export default function Analysis(props) {
                 </View>
 
                 <View style={[styles.middleContainer, {flex:1}]}>
-                    {images.length != null && images.length != 0 && (
+                    {imageLst.length != null && imageLst.length != 0 && (
                         <View style={{width: '100%', height: '100%'}}>
                             <ScrollView style={{backgroundColor: 'lightgray', flex: 1, paddingLeft: 10, paddingRight: 10}} horizontal={true}>
                                 <View style={{flex: 1}}></View>
@@ -55,7 +53,7 @@ export default function Analysis(props) {
                             </ScrollView>
                         </View>
                     )}
-                    {images.length == null || images.length == 0 && (
+                    {imageLst.length == null || imageLst.length == 0 && (
                         <View style={{flex: 1, backgroundColor: 'lightgray', justifyContent: 'center'}}>
                             <Text style={{alignSelf: 'center', fontSize: 20}}>No Scans Selected</Text>
                         </View>
@@ -73,21 +71,14 @@ export default function Analysis(props) {
                         <Text style={{ color: '#007AFF', fontSize: 18}}>Cancel</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            deleteImage();
-                        }}
-                    >
-                    </TouchableOpacity>
-                </View>
+                <View style={{flex: 2, alignItems: 'center', justifyContent: 'center'}}></View>
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <TouchableOpacity
                         onPress={() => {
-                            openAnalysis(images)
+                            onRequestClose();
                         }}
                     >
-                        <Text style={{ color: '#007AFF', fontSize: 18}}>Analyze</Text>
+                        <Text style={{ color: '#007AFF', fontSize: 18}}>Save</Text>
                     </TouchableOpacity>
                 </View>
             </View>
